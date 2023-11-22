@@ -7,22 +7,23 @@
  */
 
 #include <cstddef>
+#include <librtcos/Queue.hpp>
 
 namespace rtcos
 {
 	template <class T>
-	class CircullarBuffer
+	class CircullarBuffer : public Queue<T>
 	{
 	public:
 		CircullarBuffer(size_t);
 		~CircullarBuffer();
 
-		T get();
-		bool put(T&);
-		void remove();
+		T get() override;
+		bool put(T&) override;
+		void remove() override;
 
-		bool isEmpty();
-		bool isFull();
+		bool isEmpty() override;
+		bool isFull() override;
 
 	protected:
 		void increment(size_t&);
