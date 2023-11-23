@@ -7,6 +7,7 @@
  */
 
 #include <cstddef>
+#include <algorithm>
 
 namespace rtcos
 {
@@ -20,11 +21,16 @@ namespace rtcos
         inline const T& operator[](int i) const { return array[i]; }
         void clear();
         bool put(const T&);
+        bool dropTo(Buffer& to);
 
         bool isFull() const;
         bool isEmpty() const;
 
+        inline auto getSize() const { return size; }
         inline auto getCount() const { return count; }
+        inline auto getData() const { return array; }
+
+        Buffer clone() const;
 
     protected:
         void eraseTo(size_t to);

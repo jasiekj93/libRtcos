@@ -36,6 +36,20 @@ namespace rtcos
         return true;
     }
 
+    template<class T>
+    bool Buffer<T>::dropTo(Buffer& buffer)
+    {
+        if(count > buffer.size)
+            return false;
+
+        buffer.clear();
+        std::copy(array, array + count, buffer.array);
+        buffer.count = count;
+
+        clear(); 
+        return true;
+    }
+
     template <class T>
     inline bool Buffer<T>::isFull() const
     {
@@ -46,6 +60,12 @@ namespace rtcos
     inline bool Buffer<T>::isEmpty() const
     {
         return (count == 0);
+    }
+
+    template <class T>
+    inline Buffer<T> Buffer<T>::clone() const
+    {
+        return Buffer(this->size, this->nullValue);
     }
 
     template <class T>
