@@ -7,14 +7,14 @@
  */
 
 #include <librtcos/Task.hpp>
-#include <librtcos/Buffer.hpp>
+#include <librtcos/ShadowBuffer.hpp>
 
 namespace rtcos
 {
 	class BufferTask : public Task
 	{
 	public:
-		BufferTask(Buffer<char>&);
+		BufferTask(ShadowBuffer<char>&);
 
         void execute() override;
 
@@ -25,23 +25,22 @@ namespace rtcos
         virtual void process(const char* data, size_t count) = 0;
 
     private:
-        Buffer<char>& inputBuffer;
-        Buffer<char> taskBuffer;
+        ShadowBuffer<char>& buffer;
 	};
 
-    inline BufferTask::BufferTask(Buffer<char>& b)
-        : inputBuffer(b)
-        , taskBuffer(b.clone())
+    inline BufferTask::BufferTask(ShadowBuffer<char>& b)
+        : buffer(b)
     {
     }
 
     void BufferTask::execute()
     {
         disableBufferInterrupt();
-        inputBuffer.dropTo(taskBuffer);
+        buffer.swap();
         enableBufferInterrupt();
 
-        process(taskBuffer.getData(), taskBuffer.getSize());
-        taskBuffer.clear();
+        auto& output = buffer.getOutput();
+        process(output.getData(), output.getSize());
+        output.clear();
     }
 }
