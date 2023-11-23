@@ -3,7 +3,7 @@
 namespace rtcos
 {
     template <class T>
-	inline CircullarBuffer<T>::CircullarBuffer(size_t size)
+	inline CircullarBuffer<T>::CircullarBuffer(size_t size, const T& initial)
 		: size(size)
 		, count(0)
 		, putIndex(0)
@@ -13,7 +13,7 @@ namespace rtcos
 		array = new T[size];
 
 		for(auto i = 0U; i < size; i++)
-			array[i] = T();
+			array[i] = initial;
 	}
 
     template <class T>
@@ -41,12 +41,12 @@ namespace rtcos
     }
 
     template <class T>
-    inline void CircullarBuffer<T>::remove()
+    inline void CircullarBuffer<T>::remove(const T& replacement)
     {
 		if(count == 0)
 			return;
 		
-		array[getIndex] = T();
+		array[getIndex] = replacement;
 		increment(getIndex);
 		count--;
     }
