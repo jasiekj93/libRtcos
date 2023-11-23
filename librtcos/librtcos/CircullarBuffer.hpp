@@ -30,7 +30,7 @@ namespace rtcos
 		size_t putIndex;
 		size_t getIndex;	
 		size_t count;
-		size_t size;
+		const size_t size;
 		T* array;
         const T nullValue;
 	};

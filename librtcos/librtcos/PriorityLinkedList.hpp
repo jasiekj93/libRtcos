@@ -43,7 +43,7 @@ namespace rtcos
         Node* findNodeWithLowerPriority(int priority) const;
 
     private:
-        size_t size;
+        const size_t size;
         size_t count;
         Node* array;
         Node* head;
