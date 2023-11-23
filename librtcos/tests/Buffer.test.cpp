@@ -13,6 +13,7 @@ using namespace rtcos;
 TEST_GROUP(BufferTest)
 {
     char letterA = 'a';
+    char letterB = 'b';
 
 	void setup()
 	{
@@ -70,4 +71,54 @@ TEST(BufferTest, clear_isEmpty_andValueErased)
 
     CHECK(buffer.isEmpty());
     CHECK_EQUAL(char(), buffer[0]);
+}
+
+TEST(BufferTest, dropTo_secondIsTooSmall)
+{
+	Buffer<char> first(10);
+	Buffer<char> second(1);
+    first.put(letterA);
+    first.put(letterA);
+
+    CHECK_FALSE(first.dropTo(second));
+    CHECK_FALSE(first.isEmpty());
+}
+
+TEST(BufferTest, dropTo_OneValue)
+{
+	Buffer<char> first(10);
+	Buffer<char> second(1);
+    first.put(letterA);
+
+    CHECK(first.dropTo(second));
+
+    CHECK_EQUAL(1, second.getCount());
+    CHECK_EQUAL(letterA, second[0]);
+}
+
+TEST(BufferTest, dropTo_firstWasCleared)
+{
+	Buffer<char> first(10);
+	Buffer<char> second(1);
+    first.put(letterA);
+
+    first.dropTo(second);
+
+    CHECK(first.isEmpty());
+    CHECK_EQUAL(char(), first[0]);
+}
+
+TEST(BufferTest, dropTo_secondWasCleared)
+{
+	Buffer<char> first(10);
+	Buffer<char> second(10);
+    first.put(letterA);
+    second.put(letterB);
+    second.put(letterB);
+
+    first.dropTo(second);
+
+    CHECK_EQUAL(1, second.getCount());
+    CHECK_EQUAL(letterA, second[0]);
+    CHECK_EQUAL(char(), second[1]);
 }
