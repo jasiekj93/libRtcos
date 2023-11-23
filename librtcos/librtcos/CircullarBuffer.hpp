@@ -18,12 +18,12 @@ namespace rtcos
 		CircullarBuffer(size_t, const T& nullValue = T());
 		~CircullarBuffer();
 
-		T get() override;
+		T get() const override;
 		bool put(const T&) override;
 		void remove() override;
 
-		bool isEmpty() override;
-		bool isFull() override;
+		bool isEmpty() const override;
+		bool isFull() const override;
 
 	protected:
 		void increment(size_t&);

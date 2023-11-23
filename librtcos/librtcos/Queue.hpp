@@ -14,11 +14,11 @@ namespace rtcos
 	public:
 		virtual ~Queue() {};
 
-		virtual T get() = 0;
+		virtual T get() const = 0;
 		virtual bool put(const T&) = 0;
 		virtual void remove() = 0;
 
-		virtual bool isEmpty() = 0;
-		virtual bool isFull() = 0;
+		virtual bool isEmpty() const = 0;
+		virtual bool isFull() const = 0;
 	};
 }

@@ -22,7 +22,7 @@ namespace rtcos
     }
 
     template<class T>
-    inline T LinkedList<T>::get()
+    inline T LinkedList<T>::get() const
     {
         return (head ? head->value : nullValue);
     }
@@ -57,13 +57,13 @@ namespace rtcos
     }
 
     template<class T>
-    inline bool LinkedList<T>::isEmpty()
+    inline bool LinkedList<T>::isEmpty() const
     {
         return (count == 0);
     }
 
     template<class T>
-    inline bool LinkedList<T>::isFull()
+    inline bool LinkedList<T>::isFull() const
     {
         return (count == size);
     }

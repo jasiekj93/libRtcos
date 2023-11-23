@@ -18,12 +18,12 @@ namespace rtcos
 		PriorityLinkedList(size_t, const T& nullValue = T());
         ~PriorityLinkedList();
 
-        T get() override;
+        T get() const override;
 		bool put(const T&, int priority = 0) override;
 		void remove() override;
 
-		bool isEmpty() override;
-		bool isFull() override;
+		bool isEmpty() const override;
+		bool isFull() const override;
 
     protected:
         struct Node
@@ -40,7 +40,7 @@ namespace rtcos
         void assignPointers(Node* newNode);
         void assignPointersForTwoNodes(Node* newNode);
         void assignPointersForMoreNodes(Node* newNode);
-        Node* findNodeWithLowerPriority(int priority);
+        Node* findNodeWithLowerPriority(int priority) const;
 
     private:
         size_t size;

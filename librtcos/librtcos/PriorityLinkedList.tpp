@@ -23,7 +23,7 @@ namespace rtcos
     }
 
     template<class T>
-    inline T PriorityLinkedList<T>::get()
+    inline T PriorityLinkedList<T>::get() const 
     {
         return (head ? head->value : nullValue);
     }
@@ -48,13 +48,13 @@ namespace rtcos
     }
 
     template<class T>
-    inline bool PriorityLinkedList<T>::isEmpty()
+    inline bool PriorityLinkedList<T>::isEmpty() const 
     {
         return (count == 0);
     }
 
     template<class T>
-    inline bool PriorityLinkedList<T>::isFull()
+    inline bool PriorityLinkedList<T>::isFull() const 
     {
         return (count == size);
     }
@@ -140,7 +140,7 @@ namespace rtcos
     }
 
     template <class T>
-    inline typename PriorityLinkedList<T>::Node* PriorityLinkedList<T>::findNodeWithLowerPriority(int priority)
+    inline typename PriorityLinkedList<T>::Node* PriorityLinkedList<T>::findNodeWithLowerPriority(int priority) const
     {
         auto tmp = head;
         while(tmp->next &&

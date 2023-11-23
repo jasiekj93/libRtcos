@@ -24,7 +24,7 @@ namespace rtcos
     }
 
     template <class T>
-    inline T CircullarBuffer<T>::get()
+    inline T CircullarBuffer<T>::get() const
     {
         return array[getIndex];
     }
@@ -53,13 +53,13 @@ namespace rtcos
     }
 
     template <class T>
-    inline bool CircullarBuffer<T>::isEmpty()
+    inline bool CircullarBuffer<T>::isEmpty() const 
     {
         return (count == 0);
     }
 
     template <class T>
-    inline bool CircullarBuffer<T>::isFull()
+    inline bool CircullarBuffer<T>::isFull() const
     {
         return (count == size);
     }
