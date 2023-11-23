@@ -48,6 +48,11 @@ namespace rtcos
         Node* array;
         Node* head;
         T nullValue;
+
+        PriorityLinkedList(const PriorityLinkedList&) = delete;
+        PriorityLinkedList(const PriorityLinkedList&&) = delete;
+        PriorityLinkedList& operator=(const PriorityLinkedList&) = delete;
+        PriorityLinkedList& operator=(const PriorityLinkedList&&) = delete;
 	};
 }
 

@@ -33,6 +33,11 @@ namespace rtcos
 		const size_t size;
 		T* array;
         const T nullValue;
+
+        CircullarBuffer(const CircullarBuffer&) = delete;
+        CircullarBuffer(const CircullarBuffer&&) = delete;
+        CircullarBuffer& operator=(const CircullarBuffer&) = delete;
+        CircullarBuffer& operator=(const CircullarBuffer&&) = delete;
 	};
 
 }

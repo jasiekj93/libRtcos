@@ -34,6 +34,11 @@ namespace rtcos
         const size_t size;
         size_t count;
         const T nullValue;
+
+        Buffer(const Buffer&) = delete;
+        Buffer(const Buffer&&) = delete;
+        Buffer& operator=(const Buffer&) = delete;
+        Buffer& operator=(const Buffer&&) = delete;
 	};
 }
 

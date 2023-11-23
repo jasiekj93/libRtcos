@@ -44,6 +44,11 @@ namespace rtcos
         Node* head;
         Node* tail;
         T nullValue;
+
+        LinkedList(const LinkedList&) = delete;
+        LinkedList(const LinkedList&&) = delete;
+        LinkedList& operator=(const LinkedList&) = delete;
+        LinkedList& operator=(const LinkedList&&) = delete;
 	};
 }
 
