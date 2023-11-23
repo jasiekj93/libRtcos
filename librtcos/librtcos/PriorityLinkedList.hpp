@@ -12,7 +12,7 @@
 namespace rtcos
 {
     template<class T>
-	class PriorityLinkedList : PriorityQueue<T>
+	class PriorityLinkedList : public PriorityQueue<T>
 	{
 	public:
 		PriorityLinkedList(size_t, const T& nullValue = T());

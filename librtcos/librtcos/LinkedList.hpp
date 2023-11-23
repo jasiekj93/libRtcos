@@ -12,7 +12,7 @@
 namespace rtcos
 {
     template<class T>
-	class LinkedList : Queue<T>
+	class LinkedList : public Queue<T>
 	{
 	public:
 		LinkedList(size_t, const T& nullValue = T());
