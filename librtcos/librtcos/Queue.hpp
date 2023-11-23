@@ -15,7 +15,7 @@ namespace rtcos
 		virtual ~Queue() {};
 
 		virtual T get() = 0;
-		virtual bool put(T&) = 0;
+		virtual bool put(const T&) = 0;
 		virtual void remove() = 0;
 
 		virtual bool isEmpty() = 0;

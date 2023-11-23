@@ -28,7 +28,7 @@ TEST_GROUP(PriorityLinkedListTest)
 
 TEST(PriorityLinkedListTest, newList_isEmpty)
 {
-    PriorityLinkedList list(10);
+    PriorityLinkedList<char> list(10);
 
     CHECK(list.isEmpty());
     CHECK_FALSE(list.isFull());
@@ -36,7 +36,7 @@ TEST(PriorityLinkedListTest, newList_isEmpty)
 
 TEST(PriorityLinkedListTest, newList_sizeZero_isFullAndEmpty)
 {
-    PriorityLinkedList list(0);
+    PriorityLinkedList<char> list(0);
 
     CHECK(list.isEmpty());
     CHECK(list.isFull());
@@ -44,7 +44,7 @@ TEST(PriorityLinkedListTest, newList_sizeZero_isFullAndEmpty)
 
 TEST(PriorityLinkedListTest, put_isNotEmpty)
 {
-    PriorityLinkedList list(10);
+    PriorityLinkedList<char> list(10);
 
     CHECK(list.put(letterA));
 
@@ -54,7 +54,7 @@ TEST(PriorityLinkedListTest, put_isNotEmpty)
 
 TEST(PriorityLinkedListTest, put_sizeOne_isFull)
 {
-    PriorityLinkedList list(1);
+    PriorityLinkedList<char> list(1);
 
     CHECK(list.put(letterA));
 
@@ -64,14 +64,14 @@ TEST(PriorityLinkedListTest, put_sizeOne_isFull)
 
 TEST(PriorityLinkedListTest, put_sizeZero_Failed)
 {
-    PriorityLinkedList list(0);
+    PriorityLinkedList<char> list(0);
 
     CHECK_FALSE(list.put(letterA));
 }
 
 TEST(PriorityLinkedListTest, get_receivesSameValue)
 {
-    PriorityLinkedList list(10);
+    PriorityLinkedList<char> list(10);
     list.put(letterA);
 
     CHECK_EQUAL(letterA, list.get());
@@ -79,7 +79,7 @@ TEST(PriorityLinkedListTest, get_receivesSameValue)
 
 TEST(PriorityLinkedListTest, remove_isEmpty)
 {
-    PriorityLinkedList list(10);
+    PriorityLinkedList<char> list(10);
     list.put(letterA);
 
     CHECK_FALSE(list.isEmpty());
@@ -89,7 +89,7 @@ TEST(PriorityLinkedListTest, remove_isEmpty)
 
 TEST(PriorityLinkedListTest, put_thenGet_twoValues)
 {
-    PriorityLinkedList list(10);
+    PriorityLinkedList<char> list(10);
     list.put(letterA);
 
     CHECK_EQUAL(letterA, list.get());
@@ -99,7 +99,7 @@ TEST(PriorityLinkedListTest, put_thenGet_twoValues)
 
 TEST(PriorityLinkedListTest, put_thenGetAndRemove_twoValues)
 {
-    PriorityLinkedList list(10);
+    PriorityLinkedList<char> list(10);
     list.put(letterA);
 
     CHECK(list.put(letterB));
@@ -113,10 +113,19 @@ TEST(PriorityLinkedListTest, put_thenGetAndRemove_twoValues)
 
 TEST(PriorityLinkedListTest, put_twoValues_OneWithHigherPriority)
 {
-    PriorityLinkedList list(10);
+    PriorityLinkedList<char> list(10);
     list.put(letterA, 0);
 
     CHECK(list.put(letterB, 1));
 
     CHECK_EQUAL(letterB, list.get());
+}
+
+TEST(PriorityLinkedListTest, workingWithPointers)
+{
+    PriorityLinkedList<int*> list(10);
+    int u = 'u';
+    list.put(&u, 0);
+
+    CHECK_EQUAL(&u, list.get());
 }

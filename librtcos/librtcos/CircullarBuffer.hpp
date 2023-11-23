@@ -19,7 +19,7 @@ namespace rtcos
 		~CircullarBuffer();
 
 		T get() override;
-		bool put(T&) override;
+		bool put(const T&) override;
 		void remove() override;
 
 		bool isEmpty() override;

@@ -28,7 +28,7 @@ TEST_GROUP(LinkedListTest)
 
 TEST(LinkedListTest, newList_isEmpty)
 {
-    LinkedList list(10);
+    LinkedList<char> list(10);
 
     CHECK(list.isEmpty());
     CHECK_FALSE(list.isFull());
@@ -36,7 +36,7 @@ TEST(LinkedListTest, newList_isEmpty)
 
 TEST(LinkedListTest, newList_sizeZero_isFullAndEmpty)
 {
-    LinkedList list(0);
+    LinkedList<char> list(0);
 
     CHECK(list.isEmpty());
     CHECK(list.isFull());
@@ -44,7 +44,7 @@ TEST(LinkedListTest, newList_sizeZero_isFullAndEmpty)
 
 TEST(LinkedListTest, put_isNotEmpty)
 {
-    LinkedList list(10);
+    LinkedList<char> list(10);
 
     CHECK(list.put(letterA));
 
@@ -54,7 +54,7 @@ TEST(LinkedListTest, put_isNotEmpty)
 
 TEST(LinkedListTest, put_sizeOne_isFull)
 {
-    LinkedList list(1);
+    LinkedList<char> list(1);
 
     CHECK(list.put(letterA));
 
@@ -64,14 +64,14 @@ TEST(LinkedListTest, put_sizeOne_isFull)
 
 TEST(LinkedListTest, put_sizeZero_Failed)
 {
-    LinkedList list(0);
+    LinkedList<char> list(0);
 
     CHECK_FALSE(list.put(letterA));
 }
 
 TEST(LinkedListTest, get_receivesSameValue)
 {
-    LinkedList list(10);
+    LinkedList<char> list(10);
     list.put(letterA);
 
     CHECK_EQUAL(letterA, list.get());
@@ -79,7 +79,7 @@ TEST(LinkedListTest, get_receivesSameValue)
 
 TEST(LinkedListTest, remove_isEmpty)
 {
-    LinkedList list(10);
+    LinkedList<char> list(10);
     list.put(letterA);
 
     CHECK_FALSE(list.isEmpty());
@@ -89,7 +89,7 @@ TEST(LinkedListTest, remove_isEmpty)
 
 TEST(LinkedListTest, put_thenGet_twoValues)
 {
-    LinkedList list(10);
+    LinkedList<char> list(10);
     list.put(letterA);
 
     CHECK_EQUAL(letterA, list.get());
@@ -99,7 +99,7 @@ TEST(LinkedListTest, put_thenGet_twoValues)
 
 TEST(LinkedListTest, put_thenGetAndRemove_twoValues)
 {
-    LinkedList list(10);
+    LinkedList<char> list(10);
     list.put(letterA);
 
     CHECK(list.put(letterB));

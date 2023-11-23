@@ -30,7 +30,7 @@ namespace rtcos
     }
 
     template <class T>
-    inline bool CircullarBuffer<T>::put(T& value)
+    inline bool CircullarBuffer<T>::put(const T& value)
     {
 		if(size == count)
 			return false;
