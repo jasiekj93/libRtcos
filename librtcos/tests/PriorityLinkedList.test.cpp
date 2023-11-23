@@ -110,3 +110,13 @@ TEST(PriorityLinkedListTest, put_thenGetAndRemove_twoValues)
     list.remove();
     CHECK_EQUAL(char(), list.get());
 }
+
+TEST(PriorityLinkedListTest, put_twoValues_OneWithHigherPriority)
+{
+    PriorityLinkedList list(10);
+    list.put(letterA, 0);
+
+    CHECK(list.put(letterB, 1));
+
+    CHECK_EQUAL(letterB, list.get());
+}

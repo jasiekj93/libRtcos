@@ -19,7 +19,7 @@ namespace rtcos
 
         char get() override;
 		bool put(char&, int priority = 0) override;
-		void remove(const char& replacement = char()) override;
+		void remove() override;
 
 		bool isEmpty() override;
 		bool isFull() override;
@@ -33,7 +33,7 @@ namespace rtcos
             Node* next;
         };
 
-        Node* allocateNode(char& value);
+        Node* allocateNode(char& value, int priority);
         void deallocateNode(Node*);
         void initalizeArray();
 
@@ -42,7 +42,6 @@ namespace rtcos
         size_t count;
         Node* array;
         Node* head;
-        Node* tail;
         char nullValue;
 	};
 
@@ -75,24 +74,46 @@ namespace rtcos
         if (isFull())
             return false;
 
-        auto node = allocateNode(value);
-
-        if(count > 1)
-            tail->next = node;
-        else
+        auto node = allocateNode(value, priority);
+        
+        if(count == 1)
             head = node;
+        else if (count == 2)
+        {
+            if(head->priority >= node->priority)
+                head->next = node;
+            else
+            {
+                node->next = head;
+                head = node;
+            }
+        }
+        else
+        {
+            auto tmp = head;
+            while(tmp->next &&
+                tmp->next->priority >= node->priority)
+                tmp = tmp->next;
 
-        tail = node;
+            if(tmp->next == nullptr)
+                tmp->next = node;
+            else
+            {
+                node->next = tmp->next;
+                tmp->next = node;
+            }
+        }
+
         return true;
     }
 
-    inline void PriorityLinkedList::remove(const char &replacement)
+    inline void PriorityLinkedList::remove()
     {
         auto next = head->next;
         deallocateNode(head);
 
         if(count == 0)
-            head = tail = nullptr;
+            head = nullptr;
         else
             head = next;
     }
@@ -107,7 +128,7 @@ namespace rtcos
         return (count == size);
     }
 
-    inline PriorityLinkedList::Node* PriorityLinkedList::allocateNode(char &value)
+    inline PriorityLinkedList::Node* PriorityLinkedList::allocateNode(char &value, int priority)
     {
         count++;
         for(auto i = 0U; i < size; i++)
@@ -115,6 +136,7 @@ namespace rtcos
             {
                 array[i].isFree = false;
                 array[i].value = value;
+                array[i].priority = priority;
 
                 return &array[i];
             }
