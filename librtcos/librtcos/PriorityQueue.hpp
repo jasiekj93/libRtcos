@@ -16,7 +16,7 @@ namespace rtcos
 
 		virtual T get() = 0;
 		virtual bool put(T&, int priority = 0) = 0;
-		virtual void remove(const T& replacement) = 0;
+		virtual void remove() = 0;
 
 		virtual bool isEmpty() = 0;
 		virtual bool isFull() = 0;
