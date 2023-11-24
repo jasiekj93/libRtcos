@@ -5,37 +5,27 @@ namespace rtcos
     template<class T>
     inline LinkedList<T>::LinkedList(size_t size,
         const T& nullValue)
-        : size(size)
-        , count(0)
+        : pool(size, { .value = nullValue, .next = nullptr })
         , head(nullptr)
-        , array(nullptr)
-        , nullValue(nullValue)
+        , tail(nullptr)
     {
-        array = new Node[size];
-        initalizeArray();
-    }
-
-    template<class T>
-    inline LinkedList<T>::~LinkedList()
-    {
-        delete[] array;
     }
 
     template<class T>
     inline T LinkedList<T>::get() const
     {
-        return (head ? head->value : nullValue);
+        return (head ? head->value : pool.getNullValue().value);
     }
 
     template<class T>
     inline bool LinkedList<T>::put(const T& value)
     {
-        if (isFull())
+        auto node = pool.allocate({ .value = value, .next = nullptr });
+
+        if (node == nullptr)
             return false;
 
-        auto node = allocateNode(value);
-
-        if(count > 1)
+        if(pool.getCount() > 1)
             tail->next = node;
         else
             head = node;
@@ -48,62 +38,11 @@ namespace rtcos
     inline void LinkedList<T>::remove()
     {
         auto next = head->next;
-        deallocateNode(head);
+        pool.deallocate(head);
 
-        if(count == 0)
+        if(pool.isEmpty())
             head = tail = nullptr;
         else
             head = next;
-    }
-
-    template<class T>
-    inline bool LinkedList<T>::isEmpty() const
-    {
-        return (count == 0);
-    }
-
-    template<class T>
-    inline bool LinkedList<T>::isFull() const
-    {
-        return (count == size);
-    }
-
-    template<class T>
-    inline typename LinkedList<T>::Node* LinkedList<T>::allocateNode(const T& value)
-    {
-        count++;
-        for(auto i = 0U; i < size; i++)
-            if(array[i].isFree)
-            {
-                array[i].isFree = false;
-                array[i].value = value;
-
-                return &array[i];
-            }
-        
-        return nullptr;
-    }
-
-    template<class T>
-    inline void LinkedList<T>::deallocateNode(Node* node)
-    {
-        count--;
-
-        node->isFree = true;
-        node->next = nullptr;
-        node->value = nullValue;
-    }
-
-    template<class T>
-    inline void LinkedList<T>::initalizeArray()
-    {
-        for(auto i = 0U; i < size; i++)
-        {
-            array[i] = {
-                .value = nullValue,
-                .isFree = true,
-                .next = nullptr
-            };
-        }
     }
 }

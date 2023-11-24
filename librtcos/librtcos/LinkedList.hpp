@@ -7,7 +7,7 @@
  */
 
 #include <librtcos/Queue.hpp>
-#include <cstddef>
+#include <librtcos/MemoryPool.hpp>
 
 namespace rtcos
 {
@@ -16,42 +16,28 @@ namespace rtcos
 	{
 	public:
 		LinkedList(size_t, const T& nullValue = T());
-        ~LinkedList();
 
         T get() const override;
 		bool put(const T&) override;
 		void remove() override;
 
-		bool isEmpty() const override;
-		bool isFull() const override;
+		inline bool isEmpty() const override { return pool.isEmpty(); }
+		inline bool isFull() const override { return pool.isFull(); }
 
-        inline size_t getCount() const { return count; }
-        inline size_t getSize() const { return size; }
+        inline size_t getCount() const override { return pool.getCount(); }
+        inline size_t getSize() const override { return pool.getSize(); }
 
     protected:
         struct Node
         {
             T value;
-            bool isFree;
             Node* next;
         };
 
-        Node* allocateNode(const T& value);
-        void deallocateNode(Node*);
-        void initalizeArray();
-
     private:
-        const size_t size;
-        size_t count;
-        Node* array;
+        MemoryPool<Node> pool;
         Node* head;
         Node* tail;
-        T nullValue;
-
-        LinkedList(const LinkedList&) = delete;
-        LinkedList(const LinkedList&&) = delete;
-        LinkedList& operator=(const LinkedList&) = delete;
-        LinkedList& operator=(const LinkedList&&) = delete;
 	};
 }
 

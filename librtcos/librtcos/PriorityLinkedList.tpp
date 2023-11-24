@@ -5,36 +5,25 @@ namespace rtcos
     template<class T>
     inline PriorityLinkedList<T>::PriorityLinkedList(size_t size,
         const T& nullValue)
-        : size(size)
-        , count(0)
+        : pool(size, { .value = nullValue, .priority = 0, .next = nullptr })
         , head(nullptr)
-        , array(nullptr)
-        , nullValue(nullValue)
     {
-        array = new Node[size];
-        initalizeArray();
-
-    }
-
-    template<class T>
-    inline PriorityLinkedList<T>::~PriorityLinkedList()
-    {
-        delete[] array;
     }
 
     template<class T>
     inline T PriorityLinkedList<T>::get() const 
     {
-        return (head ? head->value : nullValue);
+        return (head ? head->value : pool.getNullValue().value );
     }
 
     template<class T>
-    inline bool PriorityLinkedList<T>::put(const T& value, int priority)
+    inline bool PriorityLinkedList<T>::put(const T& val, int prio)
     {
-        if (isFull())
+        auto node = pool.allocate({ .value = val, .priority = prio, .next = nullptr });
+
+        if (node == nullptr)
             return false;
 
-        auto node = allocateNode(value, priority);
         assignPointers(node);
         return true;
     }
@@ -42,72 +31,20 @@ namespace rtcos
     template<class T>
     inline void PriorityLinkedList<T>::remove()
     {
-        auto next = head->next;
-        deallocateNode(head);
-        head = (count == 0 ? nullptr : next);
-    }
+        if(isEmpty())
+            return;
 
-    template<class T>
-    inline bool PriorityLinkedList<T>::isEmpty() const 
-    {
-        return (count == 0);
-    }
-
-    template<class T>
-    inline bool PriorityLinkedList<T>::isFull() const 
-    {
-        return (count == size);
-    }
-
-    template<class T>
-    inline typename PriorityLinkedList<T>::Node* PriorityLinkedList<T>::allocateNode(const T& value, int priority)
-    {
-        count++;
-        for(auto i = 0U; i < size; i++)
-        {
-            if(array[i].isFree)
-            {
-                array[i].isFree = false;
-                array[i].value = value;
-                array[i].priority = priority;
-
-                return &array[i];
-            }
-        }
-        
-        return nullptr;
-    }
-
-    template<class T>
-    inline void PriorityLinkedList<T>::deallocateNode(Node* node)
-    {
-        count--;
-
-        node->isFree = true;
-        node->next = nullptr;
-        node->value = nullValue;
-    }
-
-    template<class T>
-    inline void PriorityLinkedList<T>::initalizeArray()
-    {
-        for(auto i = 0U; i < size; i++)
-        {
-            array[i] = {
-                .value = nullValue,
-                .priority = 0,
-                .isFree = true,
-                .next = nullptr
-            };
-        }
+        auto next = (head->next ? head->next : nullptr);
+        pool.deallocate(head);
+        head = next;
     }
 
     template <class T>
     inline void PriorityLinkedList<T>::assignPointers(Node* node)
     {
-        if(count == 1)
+        if(pool.getCount() == 1)
             head = node;
-        else if (count == 2)
+        else if (pool.getCount() == 2)
             assignPointersForTwoNodes(node);
         else
             assignPointersForMoreNodes(node);

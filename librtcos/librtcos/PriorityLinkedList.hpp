@@ -7,7 +7,7 @@
  */
 
 #include <librtcos/PriorityQueue.hpp>
-#include <cstddef>
+#include <librtcos/MemoryPool.hpp>
 
 namespace rtcos
 {
@@ -16,43 +16,30 @@ namespace rtcos
 	{
 	public:
 		PriorityLinkedList(size_t, const T& nullValue = T());
-        ~PriorityLinkedList();
 
         T get() const override;
 		bool put(const T&, int priority = 0) override;
 		void remove() override;
 
-		bool isEmpty() const override;
-		bool isFull() const override;
+		inline bool isEmpty() const override { return pool.isEmpty(); }
+		inline bool isFull() const override { return pool.isFull(); }
 
     protected:
         struct Node
         {
             T value;
             int priority;
-            bool isFree;
             Node* next;
         };
 
-        Node* allocateNode(const T& value, int priority);
-        void deallocateNode(Node*);
-        void initalizeArray();
         void assignPointers(Node* newNode);
         void assignPointersForTwoNodes(Node* newNode);
         void assignPointersForMoreNodes(Node* newNode);
         Node* findNodeWithLowerPriority(int priority) const;
 
     private:
-        const size_t size;
-        size_t count;
-        Node* array;
+        MemoryPool<Node> pool; 
         Node* head;
-        T nullValue;
-
-        PriorityLinkedList(const PriorityLinkedList&) = delete;
-        PriorityLinkedList(const PriorityLinkedList&&) = delete;
-        PriorityLinkedList& operator=(const PriorityLinkedList&) = delete;
-        PriorityLinkedList& operator=(const PriorityLinkedList&&) = delete;
 	};
 }
 
