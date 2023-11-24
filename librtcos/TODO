@@ -1,2 +1,3 @@
-BufferTask - swap zamiast kopiowania (a najlepiej dodatkowa klasa ze swapowaniem)
 Malloc własny
+BufferTask test
+Taski periodic (subskrypcja, powiadamianie, algorytm aktualizacji)
