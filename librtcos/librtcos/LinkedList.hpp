@@ -25,6 +25,9 @@ namespace rtcos
 		bool isEmpty() const override;
 		bool isFull() const override;
 
+        inline size_t getCount() const { return count; }
+        inline size_t getSize() const { return size; }
+
     protected:
         struct Node
         {

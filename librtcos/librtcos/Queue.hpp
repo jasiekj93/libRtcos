@@ -6,6 +6,8 @@
  * @date 2023-11-22
  */
 
+#include <cstddef>
+
 namespace rtcos
 {
 	template <class T>
@@ -20,5 +22,8 @@ namespace rtcos
 
 		virtual bool isEmpty() const = 0;
 		virtual bool isFull() const = 0;
+
+        virtual size_t getCount() const = 0;
+        virtual size_t getSize() const = 0;
 	};
 }

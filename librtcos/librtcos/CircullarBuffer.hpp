@@ -25,6 +25,9 @@ namespace rtcos
 		bool isEmpty() const override;
 		bool isFull() const override;
 
+        inline size_t getCount() const override { return count; }
+        inline size_t getSize() const override { return size; }
+
 	protected:
 		void increment(size_t&);
 		size_t putIndex;
