@@ -34,12 +34,18 @@ namespace rtcos
         inline auto getData() const { return array; }
         inline auto getSize() const { return size; }
         inline auto getCount() const { return count; }
+        inline auto getNullValue() const { return nullValue; }
 
     private:
         size_t size;
         size_t count;
         Segment* array;
         T nullValue;
+
+        MemoryPool(const MemoryPool&) = delete;
+        MemoryPool(const MemoryPool&&) = delete;
+        MemoryPool& operator=(const MemoryPool&) = delete;
+        MemoryPool& operator=(const MemoryPool&&) = delete;
 	};
 }
 

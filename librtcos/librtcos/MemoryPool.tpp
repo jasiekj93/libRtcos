@@ -52,11 +52,11 @@ namespace rtcos
             return false;
 
         int index = (int)pointer - (int)array;
+        index /= sizeof(T);
 
         if(index < 0 || index >= size)
             return false;
 
-        index /= sizeof(T);
 
         array[index].isFree = true;
         array[index].value = nullValue;
