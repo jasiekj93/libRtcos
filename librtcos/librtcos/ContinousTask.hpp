@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- * @file Task.hpp
+ * @file ContinousTask.hpp
  * @author Adrian Szczepanski
  * @date 2023-11-23
  */
