@@ -12,18 +12,42 @@ using namespace rtcos;
 
 TEST_GROUP(BufferTaskTest)
 {
-	void setup()
-	{
+	class TestBufferTask : public BufferTask<char>
+    {
+    public:
+		TestBufferTask(ShadowBuffer<char>& b, std::string& s)
+            : BufferTask(b)
+            , str(s)
+        {}
 
-	}
+    protected:
+        virtual void disableBufferInterrupt() { str += "Disabled "; };
+        virtual void enableBufferInterrupt() { str += "Enabled "; };
 
-	void teardown()
-	{
-		
-	}
+        void process(const char* data, size_t count) override
+        {
+            str += "Processing:";
+
+            for(auto i = 0U; i < count; i++)
+                str += data[i]; 
+        }
+
+    private:
+        std::string& str;
+    };
 };
 
-TEST(BufferTaskTest, example)
+TEST(BufferTaskTest, execute)
 {
-	FAIL("TODO");
+	std::string str;
+    ShadowBuffer<char> buffer(10);
+    TestBufferTask task(buffer, str);
+
+    buffer.getInput().put('a');
+    buffer.getInput().put('b');
+    task.execute();
+
+    STRCMP_EQUAL("Disabled Enabled Processing:ab", str.c_str());
+    CHECK(buffer.getOutput().isEmpty());
+    CHECK(buffer.getInput().isEmpty());
 }

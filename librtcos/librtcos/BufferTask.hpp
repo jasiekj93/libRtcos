@@ -11,10 +11,11 @@
 
 namespace rtcos
 {
+    template <class T>
 	class BufferTask : public Task
 	{
 	public:
-		BufferTask(ShadowBuffer<char>&);
+		BufferTask(ShadowBuffer<T>&);
 
         void execute() override;
 
@@ -25,22 +26,8 @@ namespace rtcos
         virtual void process(const char* data, size_t count) = 0;
 
     private:
-        ShadowBuffer<char>& buffer;
+        ShadowBuffer<T>& buffer;
 	};
-
-    inline BufferTask::BufferTask(ShadowBuffer<char>& b)
-        : buffer(b)
-    {
-    }
-
-    void BufferTask::execute()
-    {
-        disableBufferInterrupt();
-        buffer.swap();
-        enableBufferInterrupt();
-
-        auto& output = buffer.getOutput();
-        process(output.getData(), output.getSize());
-        output.clear();
-    }
 }
+
+#include <librtcos/BufferTask.tpp>
