@@ -4,11 +4,12 @@
  * @date 2023-11-24
  */
 
-#include <librtcos/MemoryPool.hpp>
+#include <librtcos/utils/MemoryPool.hpp>
 
 #include <CppUTest/TestHarness.h>
 
 using namespace rtcos;
+using namespace rtcos::utils;
 
 TEST_GROUP(MemoryPoolTest)
 {

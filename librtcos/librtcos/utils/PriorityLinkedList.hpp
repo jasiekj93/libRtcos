@@ -7,7 +7,7 @@
  */
 
 #include <librtcos/PriorityQueue.hpp>
-#include <librtcos/MemoryPool.hpp>
+#include <librtcos/utils/MemoryPool.hpp>
 
 namespace rtcos::utils
 {
@@ -38,7 +38,7 @@ namespace rtcos::utils
         Node* findNodeWithLowerPriority(int priority) const;
 
     private:
-        MemoryPool<Node> pool; 
+        utils::MemoryPool<Node> pool; 
         Node* head;
 	};
 }

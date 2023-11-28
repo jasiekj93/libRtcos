@@ -8,7 +8,7 @@
 
 #include <librtcos/Task.hpp>
 #include <librtcos/Scheduler.hpp>
-#include <librtcos/MemoryPool.hpp>
+#include <librtcos/utils/MemoryPool.hpp>
 
 namespace rtcos
 {
@@ -36,7 +36,7 @@ namespace rtcos
         };
 
     private:
-        MemoryPool<Alarm> pool;
+        utils::MemoryPool<Alarm> pool;
         unsigned long long tick;
 	};
 }

@@ -8,7 +8,7 @@
 
 #include <cstddef>
 
-namespace rtcos
+namespace rtcos::utils
 {
     template <class T>
 	class MemoryPool
@@ -49,4 +49,4 @@ namespace rtcos
 	};
 }
 
-#include <librtcos/MemoryPool.tpp>
+#include <librtcos/utils/MemoryPool.tpp>

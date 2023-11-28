@@ -7,7 +7,7 @@
  */
 
 #include <librtcos/Queue.hpp>
-#include <librtcos/MemoryPool.hpp>
+#include <librtcos/utils/MemoryPool.hpp>
 
 namespace rtcos::utils
 {

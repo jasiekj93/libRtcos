@@ -1,9 +1,9 @@
 #pragma once
 
-namespace rtcos
+namespace rtcos::utils
 {
     template<class T>
-    inline rtcos::MemoryPool<T>::MemoryPool(size_t size, const T& nullValue)
+    inline MemoryPool<T>::MemoryPool(size_t size, const T& nullValue)
         : size(size)
         , count(0)
         , array(0)
