@@ -8,7 +8,7 @@
 # PLATFORM := Pc32
 
 # Target
-library_name := librtcos
+library_name := rtcos
 
 # Directories
 project_dir ?= ..
