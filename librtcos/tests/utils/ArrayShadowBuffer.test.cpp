@@ -1,14 +1,15 @@
 /**
- * @file ShadowBuffer.test.cpp
+ * @file ArrayShadowBuffer.test.cpp
  * @author Adrian Szczepanski
  * @date 2023-11-23
  */
 
-#include <librtcos/ShadowBuffer.hpp>
+#include <librtcos/utils/ArrayShadowBuffer.hpp>
 
 #include <CppUTest/TestHarness.h>
 
 using namespace rtcos;
+using namespace rtcos::utils;
 
 TEST_GROUP(ShadowBufferTest)
 {
@@ -16,7 +17,7 @@ TEST_GROUP(ShadowBufferTest)
 
 TEST(ShadowBufferTest, swap)
 {
-	ShadowBuffer<char> buffer(10);
+	ArrayShadowBuffer<char> buffer(10);
 	buffer.getInput().put('a');
 	buffer.getOutput().put('b');
 

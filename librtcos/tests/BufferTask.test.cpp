@@ -5,6 +5,7 @@
  */
 
 #include <librtcos/BufferTask.hpp>
+#include <librtcos/utils/ArrayShadowBuffer.hpp>
 
 #include <CppUTest/TestHarness.h>
 
@@ -40,7 +41,7 @@ TEST_GROUP(BufferTaskTest)
 TEST(BufferTaskTest, execute)
 {
 	std::string str;
-    ShadowBuffer<char> buffer(10);
+    utils::ArrayShadowBuffer<char> buffer(10);
     TestBufferTask task(buffer, str);
 
     buffer.getInput().put('a');

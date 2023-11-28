@@ -19,7 +19,7 @@ namespace rtcos
         void start();
         
         inline void stop() { isRunning = false; }
-        inline bool addTask(Task* t) { return queue.put(t); }
+        inline bool addTask(Task* t, int priority = 0) { return queue.put(t, priority); }
 
     protected:
         virtual void disableInterrupts() {};

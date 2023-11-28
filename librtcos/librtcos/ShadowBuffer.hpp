@@ -15,19 +15,24 @@ namespace rtcos
 	class ShadowBuffer
 	{
 	public:
-		ShadowBuffer(size_t, const T& nullValue = char());
-
 		inline auto& getInput() { return *input; }
 		inline auto& getOutput() { return *output; }
 
-		void swap();
+		inline void swap() { std::swap(input, output); }
+
+    protected:
+        ShadowBuffer(Buffer<T>& in, Buffer<T>& out);
 
 	private:
-		Buffer<T> first;
-		Buffer<T> second;
 		Buffer<T>* input;
 		Buffer<T>* output;
 	};
-}
 
-#include <librtcos/ShadowBuffer.tpp>
+
+    template <class T>
+    inline ShadowBuffer<T>::ShadowBuffer(Buffer<T>& in, Buffer<T>& out)
+        : input(&in)
+        , output(&out)
+    {
+    }
+}
