@@ -4,7 +4,7 @@
 # ------------------------------------------------
 
 # Target
-tested_library_name := rtcos
+tested_library_name := librtcos
 
 # Directories
 project_dir ?= ../..

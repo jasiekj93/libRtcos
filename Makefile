@@ -30,7 +30,7 @@ program_names = \
 
 # Project libraries
 library_names = \
-rtcos
+librtcos
 
 # Append rest of Makefile from template
 include $(make_dir)/Main.mk
