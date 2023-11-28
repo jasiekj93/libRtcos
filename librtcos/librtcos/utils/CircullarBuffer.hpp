@@ -9,7 +9,7 @@
 #include <cstddef>
 #include <librtcos/Queue.hpp>
 
-namespace rtcos
+namespace rtcos::utils
 {
 	template <class T>
 	class CircullarBuffer : public Queue<T>
@@ -45,4 +45,4 @@ namespace rtcos
 
 }
 
-#include <librtcos/CircullarBuffer.tpp>
+#include <librtcos/utils/CircullarBuffer.tpp>

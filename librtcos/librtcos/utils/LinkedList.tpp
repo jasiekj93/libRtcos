@@ -1,6 +1,6 @@
 #pragma once
 
-namespace rtcos
+namespace rtcos::utils
 {
     template<class T>
     inline LinkedList<T>::LinkedList(size_t size,

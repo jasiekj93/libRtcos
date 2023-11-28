@@ -9,7 +9,7 @@
 #include <librtcos/PriorityQueue.hpp>
 #include <librtcos/MemoryPool.hpp>
 
-namespace rtcos
+namespace rtcos::utils
 {
     template<class T>
 	class PriorityLinkedList : public PriorityQueue<T>
@@ -43,4 +43,4 @@ namespace rtcos
 	};
 }
 
-#include <librtcos/PriorityLinkedList.tpp>
+#include <librtcos/utils/PriorityLinkedList.tpp>

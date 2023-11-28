@@ -1,6 +1,6 @@
 #pragma once
 
-namespace rtcos
+namespace rtcos::utils
 {
     template <class T>
 	inline CircullarBuffer<T>::CircullarBuffer(size_t size, const T& nullValue)

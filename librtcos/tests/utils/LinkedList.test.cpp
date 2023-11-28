@@ -4,11 +4,12 @@
  * @date 2023-11-23
  */
 
-#include <librtcos/LinkedList.hpp>
+#include <librtcos/utils/LinkedList.hpp>
 
 #include <CppUTest/TestHarness.h>
 
 using namespace rtcos;
+using namespace rtcos::utils;
 
 TEST_GROUP(LinkedListTest)
 {

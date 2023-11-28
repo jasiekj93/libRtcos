@@ -5,7 +5,7 @@
  */
 
 #include <librtcos/Scheduler.hpp>
-#include <librtcos/PriorityLinkedList.hpp>
+#include <librtcos/utils/PriorityLinkedList.hpp>
 
 #include <CppUTest/TestHarness.h>
 
@@ -52,7 +52,7 @@ TEST_GROUP(SchedulerTest)
 TEST(SchedulerTest, start_oneTask)
 {
     std::string string;
-    PriorityLinkedList<Task*> queue(10);
+    utils::PriorityLinkedList<Task*> queue(10);
 	TestScheduler scheduler(queue, string);
     TestTask task(string);
     scheduler.addTask(&task);
@@ -65,7 +65,7 @@ TEST(SchedulerTest, start_oneTask)
 TEST(SchedulerTest, start_twoTasks)
 {
     std::string string;
-    PriorityLinkedList<Task*> queue(10);
+    utils::PriorityLinkedList<Task*> queue(10);
 	TestScheduler scheduler(queue, string);
     TestTask task(string);
     scheduler.addTask(&task);
@@ -79,7 +79,7 @@ TEST(SchedulerTest, start_twoTasks)
 TEST(SchedulerTest, start_twoTasks_withPause)
 {
     std::string string;
-    PriorityLinkedList<Task*> queue(10);
+    utils::PriorityLinkedList<Task*> queue(10);
 	TestScheduler scheduler(queue, string);
     TestTask task(string);
     scheduler.addTask(&task);

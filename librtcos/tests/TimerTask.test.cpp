@@ -5,7 +5,7 @@
  */
 
 #include <librtcos/TimerTask.hpp>
-#include <librtcos/PriorityLinkedList.hpp>
+#include <librtcos/utils/PriorityLinkedList.hpp>
 
 #include <CppUTest/TestHarness.h>
 
@@ -34,7 +34,7 @@ TEST_GROUP(TimerTaskTest)
 
     std::string* string;
     TestTask* task;
-    PriorityLinkedList<Task*>* queue;
+    PriorityQueue<Task*>* queue;
     Scheduler* scheduler;
     Clock* clock;
 
@@ -42,7 +42,7 @@ TEST_GROUP(TimerTaskTest)
     {
         string = new std::string();
         task = new TestTask(*string);
-        queue = new PriorityLinkedList<Task*>(10);
+        queue = new utils::PriorityLinkedList<Task*>(10);
         scheduler = new Scheduler(*queue);
         clock = new Clock(10);
     }

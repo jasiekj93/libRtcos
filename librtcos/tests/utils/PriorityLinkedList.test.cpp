@@ -4,11 +4,12 @@
  * @date 2023-11-23
  */
 
-#include <librtcos/PriorityLinkedList.hpp>
+#include <librtcos/utils/PriorityLinkedList.hpp>
 
 #include <CppUTest/TestHarness.h>
 
 using namespace rtcos;
+using namespace rtcos::utils;
 
 TEST_GROUP(PriorityLinkedListTest)
 {

@@ -5,7 +5,6 @@
  */
 
 #include <librtcos/Clock.hpp>
-#include <librtcos/PriorityLinkedList.hpp>
 
 #include <CppUTest/TestHarness.h>
 

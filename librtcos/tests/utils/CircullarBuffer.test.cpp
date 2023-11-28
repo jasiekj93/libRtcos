@@ -4,11 +4,12 @@
  * @date 2023-11-22
  */
 
-#include <librtcos/CircullarBuffer.hpp>
+#include <librtcos/utils/CircullarBuffer.hpp>
 
 #include <CppUTest/TestHarness.h>
 
 using namespace rtcos;
+using namespace rtcos::utils;
 
 TEST_GROUP(CircullarBufferTest)
 {

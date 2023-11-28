@@ -9,7 +9,7 @@
 #include <librtcos/Queue.hpp>
 #include <librtcos/MemoryPool.hpp>
 
-namespace rtcos
+namespace rtcos::utils
 {
     template<class T>
 	class LinkedList : public Queue<T>
@@ -41,4 +41,4 @@ namespace rtcos
 	};
 }
 
-#include <librtcos/LinkedList.tpp>
+#include <librtcos/utils/LinkedList.tpp>

@@ -5,7 +5,7 @@
  */
 
 #include <librtcos/MessageTask.hpp>
-#include <librtcos/CircullarBuffer.hpp>
+#include <librtcos/utils/CircullarBuffer.hpp>
 
 #include <CppUTest/TestHarness.h>
 
@@ -39,7 +39,7 @@ TEST_GROUP(MessageTaskTest)
 TEST(MessageTaskTest, process)
 {
     std::string str;
-    CircullarBuffer<char> queue(10);
+    utils::CircullarBuffer<char> queue(10);
     TestMessageTask task(queue, str);
 
     queue.put('u');
