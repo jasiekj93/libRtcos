@@ -49,6 +49,17 @@ TEST_GROUP(SchedulerTest)
     };
 };
 
+TEST(SchedulerTest, addTask_interruptsDisabled)
+{
+    std::string string;
+    utils::PriorityLinkedList<Task*> queue(10);
+	TestScheduler scheduler(queue, string);
+    TestTask task(string);
+    scheduler.addTask(&task);
+
+    STRCMP_EQUAL("Disabled Enabled ", string.c_str());
+}
+
 TEST(SchedulerTest, start_oneTask)
 {
     std::string string;
@@ -56,6 +67,7 @@ TEST(SchedulerTest, start_oneTask)
 	TestScheduler scheduler(queue, string);
     TestTask task(string);
     scheduler.addTask(&task);
+    string.clear();
 
     scheduler.start();
 
@@ -70,6 +82,7 @@ TEST(SchedulerTest, start_twoTasks)
     TestTask task(string);
     scheduler.addTask(&task);
     scheduler.addTask(&task);
+    string.clear();
 
     scheduler.start();
 
@@ -85,6 +98,7 @@ TEST(SchedulerTest, start_twoTasks_withPause)
     scheduler.addTask(&task);
     scheduler.addTask(&task);
     task.scheduler = &scheduler;
+    string.clear();
 
     scheduler.start();
 

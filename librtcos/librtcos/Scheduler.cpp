@@ -7,7 +7,7 @@ Scheduler::Scheduler(PriorityQueue<Task*>& q)
 {
 }
 
-void rtcos::Scheduler::start()
+void Scheduler::start()
 {
     isRunning = true;
 
@@ -23,4 +23,13 @@ void rtcos::Scheduler::start()
     }
 
     isRunning = false;
+}
+
+bool Scheduler::addTask(Task *t, int priority)
+{
+    disableInterrupts();
+    auto result = queue.put(t, priority);
+    enableInterrupts();
+
+    return result;
 }
