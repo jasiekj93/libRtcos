@@ -16,8 +16,16 @@ namespace rtcos
         , public Clock::Observer
 	{
 	public:
-        TimerTask(unsigned long long delay,
-            Task&, Clock&, Scheduler&);
+        struct Configuration
+        {
+            Task& task;
+            Scheduler& scheduler;
+            Clock& clock;
+            unsigned long long delay;
+            int priority = 0;
+        };
+
+        TimerTask(const Configuration&);
 
         void execute() override;
         void notify() override;
@@ -27,5 +35,6 @@ namespace rtcos
         Scheduler& scheduler;
         Clock& clock;
         unsigned long long delay;
+        int priority;
 	};
 }

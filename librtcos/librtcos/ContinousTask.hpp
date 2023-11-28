@@ -14,11 +14,12 @@ namespace rtcos
 	class ContinousTask : public Task
 	{
 	public:
-        ContinousTask(Task&, Scheduler&);
+        ContinousTask(Task&, Scheduler&, int priority);
         void execute() override;
 
     private:
         Task& task;
         Scheduler& scheduler;
+        int priority;
 	};
 }

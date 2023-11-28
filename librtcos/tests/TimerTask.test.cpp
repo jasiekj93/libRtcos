@@ -60,7 +60,7 @@ TEST_GROUP(TimerTaskTest)
 TEST(TimerTaskTest, execute)
 {
     static constexpr auto DELAY = 1;
-	TimerTask timerTask(DELAY, *task, *clock, *scheduler);
+	TimerTask timerTask({ *task, *scheduler, *clock, DELAY });
 
     scheduler->start();
     STRCMP_EQUAL("", string->c_str());
