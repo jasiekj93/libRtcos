@@ -1,6 +1,7 @@
 #pragma once
 
 #include <librtcos/ShadowBuffer.hpp>
+#include <librtcos/utils/ArrayBuffer.hpp>
 
 namespace rtcos::utils
 {
@@ -11,8 +12,8 @@ namespace rtcos::utils
         ArrayShadowBuffer(size_t, const T& nullValue = char());
 
     private:
-        Buffer<T> first;
-        Buffer<T> second;
+        ArrayBuffer<T> first;
+        ArrayBuffer<T> second;
     };
 
 

@@ -1,16 +1,17 @@
 /**
- * @file Buffer.test.cpp
+ * @file ArrayBuffer.test.cpp
  * @author Adrian Szczepanski
  * @date 2023-11-23
  */
 
-#include <librtcos/Buffer.hpp>
+#include <librtcos/utils/ArrayBuffer.hpp>
 
 #include <CppUTest/TestHarness.h>
 
 using namespace rtcos;
+using namespace rtcos::utils;
 
-TEST_GROUP(BufferTest)
+TEST_GROUP(ArrayBufferTest)
 {
     char letterA = 'a';
     char letterB = 'b';
@@ -26,44 +27,44 @@ TEST_GROUP(BufferTest)
 	}
 };
 
-TEST(BufferTest, newBuffer_isEmpty)
+TEST(ArrayBufferTest, newBuffer_isEmpty)
 {
     constexpr auto SIZE = 10U;
-	Buffer<char> buffer(SIZE);
+	ArrayBuffer<char> buffer(SIZE);
 
     CHECK(buffer.isEmpty());
     CHECK_FALSE(buffer.isFull());
 }
 
-TEST(BufferTest, newBuffer_isErased)
+TEST(ArrayBufferTest, newBuffer_isErased)
 {
     constexpr auto SIZE = 10U;
-	Buffer<char> buffer(SIZE);
+	ArrayBuffer<char> buffer(SIZE);
 
     for(auto i = 0U; i < SIZE; i++)
         CHECK_EQUAL(char(), buffer[i]);
 }
 
-TEST(BufferTest, put_oneValue)
+TEST(ArrayBufferTest, put_oneValue)
 {
-	Buffer<char> buffer(10);
+	ArrayBuffer<char> buffer(10);
 
     CHECK(buffer.put(letterA));
     CHECK_EQUAL(letterA, buffer[0]);
     CHECK_EQUAL(1, buffer.getCount());
 }
 
-TEST(BufferTest, put_zeroSize_isFull)
+TEST(ArrayBufferTest, put_zeroSize_isFull)
 {
-	Buffer<char> buffer(0);
+	ArrayBuffer<char> buffer(0);
 
     CHECK_FALSE(buffer.put(letterA));
     CHECK(buffer.isFull());
 }
 
-TEST(BufferTest, clear_isEmpty_andValueErased)
+TEST(ArrayBufferTest, clear_isEmpty_andValueErased)
 {
-	Buffer<char> buffer(10);
+	ArrayBuffer<char> buffer(10);
     buffer.put(letterA);
     CHECK_EQUAL(letterA, buffer[0]);
 
@@ -73,10 +74,10 @@ TEST(BufferTest, clear_isEmpty_andValueErased)
     CHECK_EQUAL(char(), buffer[0]);
 }
 
-TEST(BufferTest, dropTo_secondIsTooSmall)
+TEST(ArrayBufferTest, dropTo_secondIsTooSmall)
 {
-	Buffer<char> first(10);
-	Buffer<char> second(1);
+	ArrayBuffer<char> first(10);
+	ArrayBuffer<char> second(1);
     first.put(letterA);
     first.put(letterA);
 
@@ -84,10 +85,10 @@ TEST(BufferTest, dropTo_secondIsTooSmall)
     CHECK_FALSE(first.isEmpty());
 }
 
-TEST(BufferTest, dropTo_OneValue)
+TEST(ArrayBufferTest, dropTo_OneValue)
 {
-	Buffer<char> first(10);
-	Buffer<char> second(1);
+	ArrayBuffer<char> first(10);
+	ArrayBuffer<char> second(1);
     first.put(letterA);
 
     CHECK(first.dropTo(second));
@@ -96,10 +97,10 @@ TEST(BufferTest, dropTo_OneValue)
     CHECK_EQUAL(letterA, second[0]);
 }
 
-TEST(BufferTest, dropTo_firstWasCleared)
+TEST(ArrayBufferTest, dropTo_firstWasCleared)
 {
-	Buffer<char> first(10);
-	Buffer<char> second(1);
+	ArrayBuffer<char> first(10);
+	ArrayBuffer<char> second(1);
     first.put(letterA);
 
     first.dropTo(second);
@@ -108,10 +109,10 @@ TEST(BufferTest, dropTo_firstWasCleared)
     CHECK_EQUAL(char(), first[0]);
 }
 
-TEST(BufferTest, dropTo_secondWasCleared)
+TEST(ArrayBufferTest, dropTo_secondWasCleared)
 {
-	Buffer<char> first(10);
-	Buffer<char> second(10);
+	ArrayBuffer<char> first(10);
+	ArrayBuffer<char> second(10);
     first.put(letterA);
     second.put(letterB);
     second.put(letterB);

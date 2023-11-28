@@ -7,7 +7,6 @@
  */
 
 #include <cstddef>
-#include <algorithm>
 
 namespace rtcos
 {
@@ -15,37 +14,18 @@ namespace rtcos
 	class Buffer
 	{
 	public:
-		Buffer(size_t, const T& nullValue = T());
-        ~Buffer();
+        virtual ~Buffer() {}
 
-        inline const T& operator[](int i) const { return array[i]; }
-        void clear();
-        bool put(const T&);
-        bool dropTo(Buffer& to);
+        virtual const T& operator[](int i) const = 0;
+        virtual void clear() = 0;
+        virtual bool put(const T&) = 0;
 
-        bool isFull() const;
-        bool isEmpty() const;
+        virtual bool isFull() const = 0;
+        virtual bool isEmpty() const = 0;
 
-        inline auto getSize() const { return size; }
-        inline auto getCount() const { return count; }
-        inline auto getData() const { return array; }
-
-        Buffer clone() const;
-
-    protected:
-        void eraseTo(size_t to);
-
-    private:
-        T* array;
-        const size_t size;
-        size_t count;
-        const T nullValue;
-
-        Buffer(const Buffer&) = delete;
-        Buffer(const Buffer&&) = delete;
-        Buffer& operator=(const Buffer&) = delete;
-        Buffer& operator=(const Buffer&&) = delete;
+        virtual size_t getSize() const = 0;
+        virtual size_t getCount() const = 0;
+        virtual const T* getData() const = 0;
 	};
 }
 
-#include <librtcos/Buffer.tpp>

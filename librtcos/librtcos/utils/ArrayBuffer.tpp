@@ -1,9 +1,9 @@
 #pragma once
 
-namespace rtcos
+namespace rtcos::utils
 {
     template <class T>
-    inline Buffer<T>::Buffer(size_t size, const T & nullValue)
+    inline ArrayBuffer<T>::ArrayBuffer(size_t size, const T & nullValue)
         : array(nullptr)
         , size(size)
         , count(0)
@@ -14,20 +14,20 @@ namespace rtcos
     }
 
     template <class T>
-    inline Buffer<T>::~Buffer()
+    inline ArrayBuffer<T>::~ArrayBuffer()
     {
         delete[] array;
     }
 
     template <class T>
-    inline void Buffer<T>::clear()
+    inline void ArrayBuffer<T>::clear()
     {
         eraseTo(count);
         count = 0;
     }
 
     template <class T>
-    inline bool Buffer<T>::put(const T& value)
+    inline bool ArrayBuffer<T>::put(const T& value)
     {
         if(isFull())
             return false;
@@ -37,7 +37,7 @@ namespace rtcos
     }
 
     template<class T>
-    bool Buffer<T>::dropTo(Buffer& buffer)
+    bool ArrayBuffer<T>::dropTo(ArrayBuffer& buffer)
     {
         if(count > buffer.size)
             return false;
@@ -51,25 +51,25 @@ namespace rtcos
     }
 
     template <class T>
-    inline bool Buffer<T>::isFull() const
+    inline bool ArrayBuffer<T>::isFull() const
     {
         return (count == size);
     }
 
     template <class T>
-    inline bool Buffer<T>::isEmpty() const
+    inline bool ArrayBuffer<T>::isEmpty() const
     {
         return (count == 0);
     }
 
     template <class T>
-    inline Buffer<T> Buffer<T>::clone() const
+    inline ArrayBuffer<T> ArrayBuffer<T>::clone() const
     {
-        return Buffer(this->size, this->nullValue);
+        return ArrayBuffer(this->size, this->nullValue);
     }
 
     template <class T>
-    inline void Buffer<T>::eraseTo(size_t to)
+    inline void ArrayBuffer<T>::eraseTo(size_t to)
     {
         for(auto i = 0U; i < to; i++)
             array[i] = nullValue;
