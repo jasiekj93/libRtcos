@@ -45,3 +45,6 @@ Supported architectures are:
 * `BufferTask`- override `disableBufferInterrupt()` and `enableBufferInterrupt()` methods and provide reference for `ShadowBuffer<T>` template interface (e.g. using `utils::ArrayShadowBuffer<T>` class provided by library). Overridden methods should disable and enable interrupts on the hardware peripheral from which data is added to the buffer. The ISR should also add the task to the `Scheduler` once the buffer is filled with data.
 * `TimerTask` - decorator of the `Task` class, which, after execution, adds new alarm to the `Clock` with reference to itself. When the `Clock` calls `notify()` method, the task adds itself to the `Scheduler`.
 
+## Examples
+
+Please check `librtcos/tests` directory.
