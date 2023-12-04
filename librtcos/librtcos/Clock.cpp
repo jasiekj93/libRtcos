@@ -11,18 +11,7 @@ Clock::Clock(size_t size)
 void Clock::update()
 {
     tick++;
-
-    for(auto i = 0; i < pool.getSize(); i++)
-    {
-        auto& alarm = (Alarm&)pool[i];
-
-        if(alarm.observer != nullptr && 
-            alarm.tick <= tick)
-        {
-            alarm.observer->notify();
-            pool.deallocate(&alarm);
-        }
-    }
+    notifyObservers();
 }
 
 bool Clock::addAlarm(Observer* newObserver, unsigned long long delay)
@@ -32,4 +21,27 @@ bool Clock::addAlarm(Observer* newObserver, unsigned long long delay)
     else
         return pool.allocate({ .observer = newObserver, 
             .tick = (this->tick + delay) });
+}
+
+void Clock::notifyObservers()
+{
+    for(auto i = 0; i < pool.getSize(); i++)
+    {
+        auto& alarm = (Alarm&)pool[i];
+
+        if(isAlarmTriggered(alarm))
+            notifyAndDeallocate(alarm);
+    }
+}
+
+bool Clock::isAlarmTriggered(Alarm& alarm)
+{
+    return (alarm.observer != nullptr && 
+            alarm.tick <= tick);
+}
+
+void Clock::notifyAndDeallocate(Alarm& alarm)
+{
+    alarm.observer->notify();
+    pool.deallocate(&alarm);
 }

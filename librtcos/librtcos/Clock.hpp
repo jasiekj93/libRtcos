@@ -35,6 +35,10 @@ namespace rtcos
             unsigned long long tick;
         };
 
+        void notifyObservers();
+        bool isAlarmTriggered(Alarm&);
+        void notifyAndDeallocate(Alarm&);
+
     private:
         utils::MemoryPool<Alarm> pool;
         unsigned long long tick;
