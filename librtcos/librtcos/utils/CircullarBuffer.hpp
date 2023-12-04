@@ -8,6 +8,7 @@
 
 #include <cstddef>
 #include <librtcos/Queue.hpp>
+#include <memory>
 
 namespace rtcos::utils
 {
@@ -16,7 +17,6 @@ namespace rtcos::utils
 	{
 	public:
 		CircullarBuffer(size_t, const T& nullValue = T());
-		~CircullarBuffer();
 
 		T get() const override;
 		bool put(const T&) override;
@@ -34,13 +34,8 @@ namespace rtcos::utils
 		size_t getIndex;	
 		size_t count;
 		const size_t size;
-		T* array;
+		std::unique_ptr<T[]> array;
         const T nullValue;
-
-        CircullarBuffer(const CircullarBuffer&) = delete;
-        CircullarBuffer(const CircullarBuffer&&) = delete;
-        CircullarBuffer& operator=(const CircullarBuffer&) = delete;
-        CircullarBuffer& operator=(const CircullarBuffer&&) = delete;
 	};
 
 }

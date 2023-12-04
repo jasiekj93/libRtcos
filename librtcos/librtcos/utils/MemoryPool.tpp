@@ -3,14 +3,12 @@
 namespace rtcos::utils
 {
     template<class T>
-    inline MemoryPool<T>::MemoryPool(size_t size, const T& nullValue)
-        : size(size)
+    inline MemoryPool<T>::MemoryPool(size_t s, const T& nullValue)
+        : size(s)
         , count(0)
-        , array(0)
+        , array(std::make_unique<Segment[]>(s))
         , nullValue(nullValue)
     {
-        array = new Segment[size];
-
         for(auto i = 0U; i < size; i++)
         {
             array[i] = {
@@ -18,12 +16,6 @@ namespace rtcos::utils
                 .isFree = true
             };
         }
-    }
-
-    template <class T>
-    inline MemoryPool<T>::~MemoryPool()
-    {
-        delete[] array;
     }
 
     template <class T>
@@ -51,7 +43,7 @@ namespace rtcos::utils
         if(isEmpty())
             return false;
 
-        int index = (int)pointer - (int)array;
+        int index = (int)pointer - (int)array.get();
         index /= sizeof(T);
 
         if(index < 0 || index >= size)

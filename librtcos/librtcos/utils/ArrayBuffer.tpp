@@ -3,20 +3,13 @@
 namespace rtcos::utils
 {
     template <class T>
-    inline ArrayBuffer<T>::ArrayBuffer(size_t size, const T & nullValue)
-        : array(nullptr)
-        , size(size)
+    inline ArrayBuffer<T>::ArrayBuffer(size_t s, const T & nullValue)
+        : array(std::make_unique<T[]>(s))
+        , size(s)
         , count(0)
         , nullValue(nullValue)
     {
-        array = new T[size];
         eraseTo(size);
-    }
-
-    template <class T>
-    inline ArrayBuffer<T>::~ArrayBuffer()
-    {
-        delete[] array;
     }
 
     template <class T>
@@ -43,7 +36,7 @@ namespace rtcos::utils
             return false;
 
         buffer.clear();
-        std::copy(array, array + count, buffer.array);
+        std::copy(begin(), end(), buffer.begin());
         buffer.count = count;
 
         clear(); 

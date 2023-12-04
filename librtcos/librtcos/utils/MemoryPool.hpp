@@ -7,6 +7,7 @@
  */
 
 #include <cstddef>
+#include <memory>
 
 namespace rtcos::utils
 {
@@ -21,7 +22,6 @@ namespace rtcos::utils
         };
 
 		MemoryPool(size_t, const T& nullValue = T());
-        ~MemoryPool();
 
         T* allocate(const T&);
         bool deallocate(T*);
@@ -31,21 +31,21 @@ namespace rtcos::utils
         bool isEmpty() const;
         bool isFull() const;
 
-        inline auto getData() const { return array; }
+        inline auto getData() const { return array.get(); }
         inline auto getSize() const { return size; }
         inline auto getCount() const { return count; }
         inline auto getNullValue() const { return nullValue; }
 
+        inline auto begin() { return array.get(); }
+        inline auto begin() const { return array.get(); }
+        inline auto end() { return array.get() + size; }
+        inline auto end() const { return array.get() + size; }
+
     private:
         size_t size;
         size_t count;
-        Segment* array;
+        std::unique_ptr<Segment[]> array;
         T nullValue;
-
-        MemoryPool(const MemoryPool&) = delete;
-        MemoryPool(const MemoryPool&&) = delete;
-        MemoryPool& operator=(const MemoryPool&) = delete;
-        MemoryPool& operator=(const MemoryPool&&) = delete;
 	};
 }
 

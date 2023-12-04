@@ -3,25 +3,17 @@
 namespace rtcos::utils
 {
     template <class T>
-	inline CircullarBuffer<T>::CircullarBuffer(size_t size, const T& nullValue)
-		: size(size)
+	inline CircullarBuffer<T>::CircullarBuffer(size_t s, const T& nullValue)
+		: size(s)
 		, count(0)
 		, putIndex(0)
 		, getIndex(0)
-		, array(nullptr)
+		, array(std::make_unique<T[]>(s))
         , nullValue(nullValue)
 	{
-		array = new T[size];
-
 		for(auto i = 0U; i < size; i++)
 			array[i] = nullValue;
 	}
-
-    template <class T>
-    inline CircullarBuffer<T>::~CircullarBuffer()
-    {
-		delete[] array;
-    }
 
     template <class T>
     inline T CircullarBuffer<T>::get() const
