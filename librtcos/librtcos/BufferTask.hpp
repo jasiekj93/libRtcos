@@ -23,7 +23,7 @@ namespace rtcos
         virtual void disableBufferInterrupt() {}
         virtual void enableBufferInterrupt() {}
 
-        virtual void process(const char* data, size_t count) = 0;
+        virtual void process(const T* data, size_t count) = 0;
 
     private:
         ShadowBuffer<T>& buffer;
